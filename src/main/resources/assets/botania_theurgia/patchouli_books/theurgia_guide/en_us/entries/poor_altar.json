@@ -1,0 +1,27 @@
+{
+  "name": "Poor Altar",
+  "category": "botania_theurgia:rituals",
+  "icon": "minecraft:enchanting_table",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The first altar of Theurgia."
+    },
+    {
+      "type": "patchouli:multiblock",
+      "name": "Poor Altar",
+      "text": "A primitive ritual altar.",
+      "multiblock": {
+        "pattern": [
+          [" S ", "S0S", " S "],
+          ["SSS", "SSS", "SSS"]
+        ],
+        "mapping": {
+          "S": "minecraft:stone_bricks",
+          "0": "botania_theurgia:example_block"
+        },
+        "symmetrical": true
+      }
+    }
+  ]
+}
