@@ -13,12 +13,13 @@
       "text": "A primitive ritual altar.",
       "multiblock": {
         "pattern": [
-          [" S ", "S0S", " S "],
+          [" S ", "S0S", " P "],
           ["SSS", "SSS", "SSS"]
         ],
         "mapping": {
           "S": "minecraft:stone_bricks",
-          "0": "botania_theurgia:example_block"
+          "0": "botania_theurgia:example_block",
+          "P": "botania:mana_pool"
         },
         "symmetrical": true
       }

@@ -2,6 +2,8 @@ package com.shimgo2008.botaniathuergia;
 
 import com.mojang.logging.LogUtils;
 import com.shimgo2008.botaniathuergia.blocks.PoorAltarCoreBlock;
+import com.shimgo2008.botaniathuergia.blocks.PoorAltarCoreBlockEntity;
+import com.shimgo2008.botaniathuergia.recipe.PoorAltarRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
@@ -11,6 +13,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
@@ -39,6 +42,11 @@ public class BotaniaTheurgiaMod
     private static final Logger LOGGER = LogUtils.getLogger();
     // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
+            DeferredRegister.create(
+                    ForgeRegistries.BLOCK_ENTITY_TYPES,
+                    MODID
+            );
     // Create a Deferred Register to hold Items which will all be registered under the "examplemod" namespace
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "examplemod" namespace
@@ -50,6 +58,8 @@ public class BotaniaTheurgiaMod
     // Creates a new BlockItem with the id "examplemod:example_block", combining the namespace and path
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
 
+    public static final RegistryObject<BlockEntityType<PoorAltarCoreBlockEntity>> POOR_ALTAR_BE = BLOCK_ENTITIES.register("poor_altar", () ->
+            BlockEntityType.Builder.of(PoorAltarCoreBlockEntity::new, EXAMPLE_BLOCK.get()).build(null));
     // Creates a new food item with the id "examplemod:example_id", nutrition 1 and saturation 2
     public static final RegistryObject<Item> EXAMPLE_ITEM = ITEMS.register("example_item", () -> new Item(new Item.Properties().food(new FoodProperties.Builder()
             .alwaysEat().nutrition(1).saturationMod(2f).build())));
@@ -73,6 +83,8 @@ public class BotaniaTheurgiaMod
         BLOCKS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
+
+        BLOCK_ENTITIES.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
 
@@ -81,6 +93,10 @@ public class BotaniaTheurgiaMod
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
+
+        //
+        PoorAltarRecipes.TYPES.register(modEventBus);
+        PoorAltarRecipes.SERIALIZERS.register(modEventBus);
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);

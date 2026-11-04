@@ -1,0 +1,13 @@
+{
+  "type": "botania_theurgia:heimar_trade",
+  "realm": "alfheim",
+  "input": {
+    "item": "minecraft:iron_ingot"
+  },
+  "input_count": 4,
+  "output": {
+    "item": "minecraft:gold_ingot",
+    "count": 2
+  },
+  "mana": 10000
+}
